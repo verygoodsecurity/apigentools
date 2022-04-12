@@ -9,6 +9,7 @@ jobs:
           name: Release
           command: |
             unset AWS_ACCESS_KEY_ID; unset AWS_SECRET_ACCESS_KEY;
+            ./ops/docker-login.sh
             docker build . -t 83127560329.dkr.ecr.us-west-2.amazonaws.com/misc/apigentools:${CIRCLE_TAG}
             docker push
 
