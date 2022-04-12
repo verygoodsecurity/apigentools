@@ -20,6 +20,9 @@ workflows:
       - release:
           context: circleci
           filters:
+            branches:
+              ignore:
+                - /.*
             tags:
               only:
                 - /.*
