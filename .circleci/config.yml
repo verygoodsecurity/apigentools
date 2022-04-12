@@ -1,13 +1,25 @@
+job-defaults: &job-defaults
+  environment:
+    - AWS_DEFAULT_REGION: us-west-2
+    - AWS_REGION: us-west-2
+    - AWS_ACCOUNT_ID: "883127560329"
+    - AWS_PROFILE: dev/vault
+
 version: 2.1
 jobs:
   release:
     machine:
       image: ubuntu-2004:202111-02
+    <<: *job-defaults
     steps:
       - checkout
       - run:
           name: Install AWS CLI
           command: pip install awscli
+      run:
+        name: Setup Environment
+        command: |
+          ./.circleci/setup-aws-config.sh
       - run:
           name: Build
           command: docker build . -t 83127560329.dkr.ecr.us-west-2.amazonaws.com/misc/apigentools:${CIRCLE_TAG}
