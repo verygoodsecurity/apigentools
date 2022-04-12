@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install AWS CLI
+          command: pip install awscli
+      - run:
           name: Release
           command: |
             unset AWS_ACCESS_KEY_ID; unset AWS_SECRET_ACCESS_KEY;
