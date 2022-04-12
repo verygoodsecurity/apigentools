@@ -1,0 +1,24 @@
+version: 2.1
+jobs:
+  release:
+    machine:
+      image: ubuntu-2004:202111-02
+    steps:
+      - checkout
+      - run:
+          name: Release
+          command: |
+            unset AWS_ACCESS_KEY_ID; unset AWS_SECRET_ACCESS_KEY;
+            docker build . -t 83127560329.dkr.ecr.us-west-2.amazonaws.com/misc/apigentools:${CIRCLE_TAG}
+            docker push
+
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release:
+          context: circleci
+          filters:
+            tags:
+              only:
+                - /.*
