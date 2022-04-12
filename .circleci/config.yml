@@ -20,13 +20,13 @@ jobs:
       - run:
           name: Build
           command: |
-            docker build . -t 83127560329.dkr.ecr.us-west-2.amazonaws.com/misc/apigentools:${CIRCLE_TAG}
+            docker build . -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-west-2.amazonaws.com/misc/apigentools:${CIRCLE_TAG}
       - run:
           name: Release
           command: |
             unset AWS_ACCESS_KEY_ID; unset AWS_SECRET_ACCESS_KEY;
             ./ops/docker-login.sh
-            docker push 83127560329.dkr.ecr.us-west-2.amazonaws.com/misc/apigentools:${CIRCLE_TAG}
+            docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-west-2.amazonaws.com/misc/apigentools:${CIRCLE_TAG}
 
 workflows:
   version: 2
