@@ -1,10 +1,5 @@
-#!/usr/bin/env bash
+export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID:-883127560329}
+export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-west-2}
+export AWS_PROFILE=${AWS_PROFILE:-dev/vault}
 
-login_command=`aws ecr get-login`
-bash -c "${login_command}"
-
-if [ $? -ne 0 ]
-then
-    login_command=`aws ecr get-login --no-include-email`
-    bash -c "${login_command}"
-fi
+aws ecr get-login-password --region "${AWS_DEFAULT_REGION}" | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
